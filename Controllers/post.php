@@ -16,6 +16,8 @@ $user_id = $_SESSION['POST'][0]['user_id'];
 
 $post = detailPost($id);
 
-include_once('../views/post.php');
+$comments = getComments($id);
+
+include_once('../Views/post.php');
 
 ?>
