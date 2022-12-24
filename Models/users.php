@@ -130,42 +130,36 @@ function loginCheck(string $email, string $password){
  * ユーザー編集関数
  * 
  * @param array $user
- * @return void
+ * @return bool
  */
 
 function updateUser(array $user){
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);  
-    //DBへの接続に失敗したとき
-    if($mysqli->connect_errno){
-        echo 'データベースへの接続に失敗しました。' . $mysqli->connect_errno . "\n";
-        exit;
-    }
-    //ユーザーの編集
+
+    try{
+  //ユーザーの編集
+    $db = new PDO('mysql:host=localhost;dbname=fault-log', DB_USER, DB_PASSWORD);
     $query  = 'UPDATE users SET name = ?, email = ?, password = ?, updated_at = ? WHERE id = ?';
-    $stmt = $mysqli->prepare($query);
-    $stmt->bind_param('sssss',$user['name'], $user['email'], $user['password'], $user['updated_at'],$user['id']);
+    
+    $stmt = $db->prepare($query);
+
+    $stmt->bindParam(1,$user['name'],PDO::PARAM_STR);
+    $stmt->bindParam(2,$user['email'],PDO::PARAM_STR);
+    $stmt->bindParam(3,$user['password'],PDO::PARAM_STR);
+    $stmt->bindParam(4,$user['updated_at'],PDO::PARAM_INT);
+    $stmt->bindParam(5,$user['id'],PDO::PARAM_INT);
+
     $res = $stmt->execute();
+    return $res;
     if($res === false){
-        echo 'エラーメッセージ' . $mysqli->error . "\n";
+        echo 'エラーメッセージ' . $db->error . "\n";
         exit;
     }
-
-    //contentsテーブルの更新
-    $id = $_SESSION['USER']['id'];
-    $query2 = "UPDATE contents SET user_name = ? WHERE user_id = '". $id ."' ";
-    $statement = $mysqli->prepare($query2);
-    $statement->bind_param('s',$user['name']);
-    $response = $statement->execute();
-    if($response === false){
-        echo 'エラーメッセージ' . $mysqli->error . "\n";
-        exit;
+    } catch (PDOException $e){
+        print "エラー!: " . $e->getMessage() . "<br/gt;";
+        die();
     }
-
-$mysqli->prepare($query);
-    $mysqli->close();
-    return true;
-    exit;
 }
+
 
 /**
  * ユーザーレベルの取得関数
