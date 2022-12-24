@@ -1,0 +1,15 @@
+/* header */
+.header{
+    background-color: aliceblue;
+}
+
+.header ul li{
+    display: inline-block;
+    padding: 10px;
+}
+
+/* 返信エリア */
+.reply{
+    border: 1px solid #eef;
+    text-align:center;
+}
