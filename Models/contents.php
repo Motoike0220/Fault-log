@@ -10,13 +10,16 @@ function createContents(array $data){
         $db = new PDO('mysql:host=localhost;dbname=fault-log', DB_USER, DB_PASSWORD);
         $query = 'INSERT INTO contents (user_id,user_name,post,categoly,image_path,title) VALUES (?,?,?,?,?,?)';
         $stmt = $db->prepare($query);
+
         $stmt->bindParam(1, $data['user_id'],PDO::PARAM_INT);
         $stmt->bindParam(2, $data['user_name'],PDO::PARAM_STR);
         $stmt->bindParam(3, $data['post'],PDO::PARAM_STR);
         $stmt->bindParam(4, $data['categoly'],PDO::PARAM_STR);
-        $stmt->bindParam(5, $data['image_path'],PDO::PARAM_STR);
+        $stmt->bindParam(5, $data['image_path'],PDO::PARAM_INT);
         $stmt->bindParam(6, $data['title'],PDO::PARAM_STR);
+
         $response = $stmt->execute();
+
         if($response === false){
         echo 'エラーメッセージ' . $db->error . "\n";
         die();
@@ -144,6 +147,71 @@ function deletePost($id){
         die();
     }
 }
+
+/** 
+ * 返信の作成   
+ * @param array $data
+ * @return void
+*/
+
+function createReply(array $data){
+    try{
+        $db = new PDO('mysql:host=localhost;dbname=fault-log', DB_USER, DB_PASSWORD);
+        $query ='INSERT INTO comments (comment,post_id,user_id) VALUES (?,?,?)';
+        
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(1, $data['comment'],PDO::PARAM_STR);
+        $stmt->bindParam(2, $data['post_id'],PDO::PARAM_INT);
+        $stmt->bindParam(3, $data['user_id'],PDO::PARAM_INT);
+        
+        $res = $stmt->execute();
+        
+        if($res == false){
+            echo 'エラーメッセージ';
+            // DB接続を解放
+            $db=null;
+            die();
+            }
+                    // 接続を閉じる
+        $db = null;
+    } catch (PDOException $e){
+        print "エラー!: " . $e->getMessage() . "<br/gt;";
+        die();
+    }
+}
+
+/**
+ * 返信の表示
+ * 
+ * @param int $post_id
+ * @return array $comments
+ */
+
+function getComments($post_id){
+    try{
+        $db = new PDO('mysql:host=localhost;dbname=fault-log', DB_USER, DB_PASSWORD);
+        $query = 'SELECT *  FROM comments WHERE post_id = ?';
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(1,$post_id,PDO::PARAM_INT);
+        $res = $stmt->execute();
+        $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if($res == false){
+            echo 'エラーメッセージ';
+            // DB接続を解放
+            $db=null;
+            die();
+            }
+
+        // 接続を閉じる
+        $db = null;
+        return $comments;
+
+    } catch (PDOException $e){
+        print "エラー!: " . $e->getMessage() . "<br/gt;";
+        die();
+    }
+}
+
 
 ?>
 

@@ -9,7 +9,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <form class="form-horizontal" role="form" action="../Controllers/reply.php" method="poat">
+            <form action="../Controllers/reply.php" method="post">
                 <textarea name='comment' value='コメント'></textarea>
                 <button class="btn btn-primary" type="sumbit">返信する</button>
             </form>
