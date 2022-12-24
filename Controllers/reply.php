@@ -22,6 +22,7 @@ var_dump($id);
     if(isset($_POST['comment']) && isset($user)){
         $reply = [
             'comment' => $_POST['comment'],
+            'user_name' => $user['name'],
             'post_id' => $_SESSION['POST'][0]['id'],
             'user_id' => $_SESSION['POST'][0]['user_id'],
         ];

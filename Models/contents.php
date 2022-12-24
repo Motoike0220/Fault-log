@@ -157,12 +157,13 @@ function deletePost($id){
 function createReply(array $data){
     try{
         $db = new PDO('mysql:host=localhost;dbname=fault-log', DB_USER, DB_PASSWORD);
-        $query ='INSERT INTO comments (comment,post_id,user_id) VALUES (?,?,?)';
+        $query ='INSERT INTO comments (comment,user_name,post_id,user_id) VALUES (?,?,?,?)';
         
         $stmt = $db->prepare($query);
         $stmt->bindParam(1, $data['comment'],PDO::PARAM_STR);
-        $stmt->bindParam(2, $data['post_id'],PDO::PARAM_INT);
-        $stmt->bindParam(3, $data['user_id'],PDO::PARAM_INT);
+        $stmt->bindParam(2, $data['user_name'],PDO::PARAM_STR);
+        $stmt->bindParam(3, $data['post_id'],PDO::PARAM_INT);
+        $stmt->bindParam(4, $data['user_id'],PDO::PARAM_INT);
         
         $res = $stmt->execute();
         

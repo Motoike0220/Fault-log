@@ -30,6 +30,7 @@
                         <!-- <p><img src="<?php echo $comment['image_path'] ?>" alt="投稿画像"width='50px' height='50px'></p> -->
                         <p><?php echo $comment['created_at'] ?></p>
                         <p><?php echo $comment['comment'] ?></p>
+                        <span>発信者：</span><span><?php echo $comment['user_name'] ?></span>
                         <?php if($temp_id == $user_id): ?>
                             <span><a href ='../Controllers/delete.php?id=<?php echo $posts['id'] ?>"'>削除  |  </a></span>
                             <span><a href ='#'>更新</a></span>
