@@ -16,6 +16,10 @@ $user_id = $_SESSION['POST'][0]['user_id'];
 
 $post = detailPost($id);
 
-include_once('../views/post.php');
+
+var_dump($_SESSION['POST']);
+
+
+include_once('../Views/post.php');
 
 ?>

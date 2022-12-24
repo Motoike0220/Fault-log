@@ -32,7 +32,7 @@
                         <?php if($temp_id == $user_id): ?>
                             <span><a href ='../Controllers/delete.php?id=<?php echo $posts['id'] ?>"'>削除  |  </a></span>
                             <span><a href ='#'>更新</a></span>
-                            <span><a href='../Controllers/reply.php' >返信</a></span>
+                            <span><a href='../Controllers/reply.php'>返信</a></span>
                         <?php endif; ?>
                     <?php endforeach; ?>
                     </div>
