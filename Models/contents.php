@@ -105,12 +105,12 @@ function detailPost($id){
  * @param string $keyword
  * @return array $result
  */
-function searchContents($keyword){
+function searchPosts($keyword){
     try {
         // MySQLへの接続
         $db = new PDO('mysql:host=localhost;dbname=fault-log', DB_USER, DB_PASSWORD);
         // 接続を使用する
-        $sql ='SELECT * FROM contents WHERE body LIKE ?';
+        $sql ='SELECT * FROM contents WHERE title LIKE ?';
         $stmt = $db->prepare($sql);
         $word[] = '%'.$keyword.'%';
         $stmt->execute($word);

@@ -14,8 +14,10 @@
                 <div class='article'>
                     <?php foreach($post as $posts): ?>
                         <h1><?php echo $posts['title'] ?></h1>
+                        <span><?php echo $posts['user_name'] ?></span>
                         <p><img src="<?php echo $posts['image_path'] ?>" alt="投稿画像"width='50px' height='50px'></p>
                         <p><?php echo $posts['created_at'] ?></p>
+                        <span><img src='../image/posts/heart.jpeg' alt='ハート' height='20px' width='20px'></span>
                         <p><?php echo $posts['post'] ?></p>
                         <?php if($temp_id == $user_id): ?>
                             <span><a href ='../Controllers/delete.php?id=<?php echo $posts['id'] ?>"'>削除  |  </a></span>
