@@ -1,3 +1,10 @@
+/* タイトル */
+.title {
+    text-align: left;
+    margin:20px;
+    padding:10px;
+}
+
 /* header */
 .header{
     background-color: aliceblue;
@@ -8,6 +15,19 @@
     padding: 10px;
 }
 
+/* ホーム */
+.contents{
+    text-align: center;
+}
+
+.contents .head-line {
+    border:1px,solid,#eef
+}
+
+.main .post{
+    display: inline-block;
+    
+}
 /* 返信エリア */
 .reply{
     border: 1px solid #eef;

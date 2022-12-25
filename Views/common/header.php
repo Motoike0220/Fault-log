@@ -1,3 +1,7 @@
+<div class='title'>
+    <h1>失敗のスペシャリストたち</h1>
+</div>
+
 <div class="header">
     <ul>
         <li><a href ="../controllers/home.php">ホーム</a></li>
