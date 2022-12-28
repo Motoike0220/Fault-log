@@ -15,7 +15,7 @@
             <div class='col-md-8'>
             <div class="contents">
                 <div class="main">
-                    <h6>新着生地</h6>
+                    <h6>新着記事</h6>
                     <?php foreach($contents as $content): ?> 
                     <div class='posts'>
                         <span><a href='../Controllers/post.php?id=<?php echo $content['id']?>'><p><?php echo $content['title'] ?></p></a></span>
