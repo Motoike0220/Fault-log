@@ -12,7 +12,7 @@
             <div class="head-line">
                 <!--post-area-->
             </div>
-            <div class='col-md-8'>
+            <div class='col-md-10'>
             <div class="contents">
                 <div class="main">
                     <h6>新着記事</h6>
@@ -26,11 +26,17 @@
             </div>
             </div>
             </div>
-            <div class='col-md-4'>
+            <div class='col-md-2'>
                 <div class='profile'>
-                    <?php include_once('../Views/common/user.php') ?>
+                    <ul>
+                        <?php echo $_SESSION['USER']['nickname']?>
+                        <li><a href="../controllers/update_user.php">ユーザー情報更新</a></li>
+                        <li><a href ="../controllers/sign-out.php">ログアウト</a></li>
+                        <li><a href="../Controllers/contribute.php" >投稿</a></li>
+                    </ul>
                 </div>
             </div>
+        </div>
     </div>         
 </div>
 </body>
