@@ -210,22 +210,28 @@ function getUserProfile($id){
  * @param void
  * @return array $users
  */
-
 function getUsers(){
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);  
-    //DBへの接続に失敗したとき
-    if($mysqli->connect_errno){
-        echo 'データベースへの接続に失敗しました。' . $mysqli->connect_errno . "\n";
-        exit;
-    }
-    $query = 'SELECT * FROM users ';
-    $res = $mysqli->query($query);
+    try{
+        //ユーザーの編集
+        $db = new PDO('mysql:host=localhost;dbname=fault-log', DB_USER, DB_PASSWORD);
     
-    if($res === false){
-        echo 'エラーメッセージ' . $mysqli->error . "\n";
-        exit;
-    }
-    $users = $res->fetch_all(MYSQLI_ASSOC);
-    $mysqli->close();
-    return $users;
+        $query = 'SELECT * FROM users ';
+        $res = $db->query($query);
+    
+        return $res;
+        if($res === false){
+            echo 'エラーメッセージ' . $db->error . "\n";
+            exit;
+        }
+        $db = null;
+        return $res;
+    
+        } catch (PDOException $e){
+            print "エラー!: " . $e->getMessage() . "<br/gt;";
+            die();
+        }
+    
 }
+
+
+
