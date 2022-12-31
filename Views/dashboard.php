@@ -13,8 +13,9 @@
                     <th>名前</th>
                     <th>ニックネーム</th>
                     <th>メール</th>
-                    <th>ユーザーレベル</th>
-                    <th></th>
+                    <th>作成日</th>
+                    <th>管理権限</th>
+                    <th>詳細</th>
                 </tr>
                 </thead>                
                 <tbody>
@@ -23,9 +24,15 @@
                         <td><?php echo $user['name']; ?></td>
                         <td><?php echo $user['nickname']; ?></td>
                         <td><?php echo $user['email']; ?></td>
-                        <td><?php echo $user['user_level']; ?></td>
-                        <td>更新</td>
-                        <td>削除</td>
+                        <td><?php echo $user['created_at']; ?></td>
+                        <td>
+                        <?php if ($user['user_level'] == 2): ?>
+                            <p>管理者</p>
+                            <?php else: ?>
+                            <p>一般ユーザー</p>
+                            <?php endif; ?>
+                        </td>
+                        <td><a href='../Controllers/users.php?id=<?php echo $user['id']; ?>'>管理</a></td>
                     </tr>
                     <tr>
                     </tr>

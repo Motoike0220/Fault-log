@@ -46,9 +46,9 @@
     text-align:center;
 }
 
-/* 記事一覧ページ */
-.search {
-
+/* 記事詳細ページ */
+.article {
+    text-align: center;
 }
 
 /* プロフィール */
@@ -61,3 +61,24 @@
     list-style-type: none;
 }
 
+/* 管理画面 */
+.user-list{
+    text-align: center;
+}
+
+
+
+/* 投稿エリア */
+.post-area{
+    text-align: center;
+}
+
+.post-body input {
+    display:block;
+    text-align: center;
+}
+
+textarea {
+    width:600px; 
+    height:300px;
+}

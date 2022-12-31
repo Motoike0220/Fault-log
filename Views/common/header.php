@@ -1,5 +1,5 @@
 <div class='title'>
-    <h1>失敗のスペシャリストたち</h1>
+    <h1>学習記録</h1>
 </div>
 
 <div class="header">

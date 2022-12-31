@@ -160,27 +160,6 @@ function updateUser(array $user){
     }
 }
 
-
-/**
- * ユーザーレベルの取得関数
- * 
- * @param void
- * @return int $user_level
- */
-
-function getUserLevel(){
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);  
-    //DBへの接続に失敗したとき
-    if($mysqli->connect_errno){
-        echo 'データベースへの接続に失敗しました。' . $mysqli->connect_errno . "\n";
-        exit;
-    }
-    //ログイン中のユーザーのユーザーレベルの確認
-    $user_level = $_SESSION['USER']['user_level'];
-    $mysqli->close();
-    return $user_level;
-}
-
 /**
  * プロフィールの取得
  * @param $id
@@ -233,5 +212,65 @@ function getUsers(){
     
 }
 
+    /**
+     * 特定のユーザーを取得
+     * @param int $id
+     * @return array $user
+     */
+
+    function getUser($id){
+        try{
+            //ユーザーの編集
+            $db = new PDO('mysql:host=localhost;dbname=fault-log', DB_USER, DB_PASSWORD);
+            $query = 'SELECT * FROM users WHERE id = ? ';
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(1,$id,PDO::PARAM_INT);
+            $res = $stmt->execute();
+            if($res === false){
+                echo 'エラーメッセージ' . $db->error . "\n";
+                exit;
+            }
+            $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $db = null;
+            return $user;
+            } catch (PDOException $e){
+                print "エラー!: " . $e->getMessage() . "<br/gt;";
+                die();
+            }
+    }
 
 
+    /**
+     * 管理権限を変更する関数
+     * @param int $id |int $data
+     * @return bool
+     */
+
+    function changeUserLevel($data,$id){
+
+        try{
+            $db = new PDO('mysql:host=localhost;dbname=fault-log', DB_USER, DB_PASSWORD);
+            
+            $query = 'UPDATE users SET user_level = ? WHERE id = ? ';
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(1,$data,PDO::PARAM_INT);
+            $stmt->bindParam(2,$id,PDO::PARAM_INT);
+            $res = $stmt->execute();
+
+            if($res === false){
+                echo 'エラーメッセージ' . $db->error . "\n";
+                exit;
+            }
+            $db = null;
+            return $res;
+            } catch (PDOException $e){
+                print "エラー!: " . $e->getMessage() . "<br/gt;";
+                die();
+            }
+    }
+
+    /**
+     * ユーザー権限を取得する関数
+     * @param int $id
+     * @return int $user_level
+     */
