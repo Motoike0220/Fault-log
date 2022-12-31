@@ -105,12 +105,12 @@ function detailPost($id){
  * @param string $keyword
  * @return array $result
  */
-function searchContents($keyword){
+function searchPosts($keyword){
     try {
         // MySQLへの接続
         $db = new PDO('mysql:host=localhost;dbname=fault-log', DB_USER, DB_PASSWORD);
         // 接続を使用する
-        $sql ='SELECT * FROM contents WHERE body LIKE ?';
+        $sql ='SELECT * FROM contents WHERE title LIKE ?';
         $stmt = $db->prepare($sql);
         $word[] = '%'.$keyword.'%';
         $stmt->execute($word);
@@ -124,7 +124,6 @@ function searchContents($keyword){
         die();
     }
 }
-
 
 /**
  * 投稿を削除する
@@ -140,7 +139,16 @@ function deletePost($id){
         $query = 'DELETE FROM contents WHERE id = ? LIMIT 1 ' ;
         $stmt = $db->prepare($query);
         $stmt->bindParam(1,$id,PDO::PARAM_INT);
-        header('Location: '. HOME_URL . 'controllers/home.php');
+        $res = $stmt->execute();
+        //失敗したときエラーメッセージ
+        if($res == false){
+            echo 'エラーメッセージ';
+            // DB接続を解放
+            $db=null;
+            die();
+            }
+        header('Location: '. HOME_URL . 'Controllers/home.php');
+        $db = null;
         exit;
 }catch (PDOException $e) { // PDOExceptionをキャッチする
         print "エラー!: " . $e->getMessage() . "<br/gt;";

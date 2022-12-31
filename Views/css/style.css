@@ -1,3 +1,11 @@
+/* タイトル */
+.title {
+    text-align: center;
+    margin:20px;
+    padding:10px;
+    background-color: aliceblue;
+}
+
 /* header */
 .header{
     background-color: aliceblue;
@@ -8,8 +16,48 @@
     padding: 10px;
 }
 
+/* ホーム */
+.contents{
+    text-align: center;
+    border-right:1px solid #eef;
+}
+
+.contents .head-line {
+    border:1px,solid,#eef
+}
+
+.main {
+    border-left:1px solid #eef
+
+}
+
+.main .post{
+    display: inline-block;
+
+}
+
+.paginate{
+    text-align: center;
+}
+
 /* 返信エリア */
 .reply{
     border: 1px solid #eef;
     text-align:center;
 }
+
+/* 記事一覧ページ */
+.search {
+
+}
+
+/* プロフィール */
+.profile{
+    display: flex;
+    justify-content: space-around;
+}
+
+.profile ul {
+    list-style-type: none;
+}
+
