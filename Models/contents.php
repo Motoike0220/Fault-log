@@ -136,7 +136,8 @@ function deletePost($id){
     try {
         // MySQLへの接続
         $db = new PDO('mysql:host=localhost;dbname=fault-log', DB_USER, DB_PASSWORD);
-        $query = 'DELETE FROM contents WHERE id = ? LIMIT 1 ' ;
+        $query = 'DELETE contents,comments FROM contents LEFT JOIN comments ON contents.id = comments.post_id
+                    WHERE contents.id = ? ' ;
         $stmt = $db->prepare($query);
         $stmt->bindParam(1,$id,PDO::PARAM_INT);
         $res = $stmt->execute();
