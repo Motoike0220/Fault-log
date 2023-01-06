@@ -14,10 +14,17 @@
                 <div class='article'>
                     <!-- 投稿エリア -->
                     <?php foreach($post as $posts): ?>
-                        <h1><?php echo $posts['title'] ?></h1>
+                        <h6><?php echo $posts['title'] ?></h6>
                         <span><?php echo $posts['user_name'] ?></span>
+                        <?php if(isset($posts['image_path'])): ?>
                         <p><img src="<?php echo $posts['image_path'] ?>" alt="投稿画像"width='50px' height='50px'></p>
+                        <?php endif; ?>
                         <p><?php echo $posts['created_at'] ?></p>
+                        <p><?php echo $posts['post'] ?></p>
+                        <?php if($temp_id == $user_id): ?>
+                            <span><a href ='../Controllers/delete.php?id=<?php echo $posts['id'] ?>"'>削除  |  </a></span>
+                            <span><a href ='#'>更新</a></span>
+                        <?php endif; ?>
                         <div class='js-likes' data-post_id='1' data-user_id='1'>
                             <!-- いいねエリア -->
                             <?php if(!isset($like_id)):?>
@@ -26,11 +33,6 @@
                                 <span><img id="" src="http://localhost/Fault-log/Views/img/post/likes.svg" alt='ハート' height='20px' width='20px'></span>
                             <?php endif; ?>
                         </div>
-                        <p><?php echo $posts['post'] ?></p>
-                        <?php if($temp_id == $user_id): ?>
-                            <span><a href ='../Controllers/delete.php?id=<?php echo $posts['id'] ?>"'>削除  |  </a></span>
-                            <span><a href ='#'>更新</a></span>
-                        <?php endif; ?>
                     <?php endforeach; ?>
                     <span><a href='../Controllers/reply.php'>返信</a></span>
                     

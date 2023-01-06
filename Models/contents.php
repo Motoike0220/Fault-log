@@ -222,6 +222,31 @@ function getComments($post_id){
     }
 }
 
+/**
+ * 特定のユーザーの記事を取得する
+ * @param int $id
+ * @return array $result
+ */
+function userPost($id){
+    try {
+        // MySQLへの接続
+        $db = new PDO('mysql:host=localhost;dbname=fault-log', DB_USER, DB_PASSWORD);
+        // 接続を使用する
+        $query = 'SELECT * FROM contents WHERE user_id = ?';
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(1,$id,PDO::PARAM_INT);
+        $stmt->execute();
+        $res=$stmt->fetchAll(PDO::FETCH_ASSOC);
+        // 接続を閉じる
+        $db = null;
+        return $res;
+        //例外処理
+    } catch (PDOException $e) { // PDOExceptionをキャッチする
+        print "エラー!: " . $e->getMessage() . "<br/gt;";
+        die();
+    }
+}
+
 
 ?>
 
